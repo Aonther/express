@@ -165,6 +165,71 @@ router.post('/write_config', function(req, res, next){
     })
 });
 
+// 注册接口
+router.post('/register', function(req, res, next){ 
+    
+    // 文件名
+    var username = req.param('username');
+    var password = req.param('password');
+
+    if(!username || !password){
+        return res.send({
+            status:0,
+            info:'数据不存在'
+        });
+    }
+    //1)读取文件
+    var filePath = PATH + 'login.json';
+    
+    fs.readFile(filePath, function(err, data){
+        if(err){
+            return res.send({
+                status:0,
+                info: '读取数据失败'
+            });
+        }
+        
+        
+        var arr = JSON.parse(data.toString());
+        
+        var obj = {
+            user: username,
+            password: password
+        };
+        
+        for(i in arr)
+        {
+            if(username == arr[i].user)
+            {
+                return res.send({
+                    status: 0,
+                    info: '用户名已存在'
+                })
+            }
+        }
+
+        arr.splice(0, 0 ,obj);
+        
+        //2)写入文件
+        var newData = JSON.stringify(arr);
+        
+        fs.writeFile(filePath, newData, function(err){
+            
+            if(err){
+                return res.send({
+                    status:0,
+                    info: '写入文件失败'
+                });
+            }
+            
+            return res.send({
+                status:1,
+                info: obj
+            });
+        });
+    })
+});
+
 //登录接口
 router.post('/login', function(req, res, next){
 
@@ -182,17 +247,21 @@ router.post('/login', function(req, res, next){
             });
         }
         var arr = JSON.parse(data.toString());
-        if(username == arr[0].user && password == arr[0].password)
+        
+        for(i in arr)
         {
-            res.cookie('user',username);
-            return res.send({
-                status: 1
-            });
+            if(username == arr[i].user && password == arr[i].password)
+            {
+                res.cookie('user',username);
+                return res.send({
+                    status: 1
+                });
+            }
         }
 
         return res.send({
             status: 0,
-            info: '登录失败'
+            info: '用户名或者密码错误，请重试'
         });
         return false
     })

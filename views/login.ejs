@@ -49,7 +49,7 @@
           if(data.status){
             window.location.href = '/';
           }else{
-            alert('登录失败');
+            alert(data.info);
           }
         },
         error: function(){
