@@ -7,10 +7,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'>
     <link rel="stylesheet" href="http://v3.bootcss.com/assets/css/docs.min.css">
+    <style type="text/css" rel="stylesheet">
+      html,body{width:100%;height:100%;margin:0;padding:0;font-family:"lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;}
+      .header{height:40px;width:100%;background-color:#242424;position:fixed;}
+      .header_title{line-height:40px;margin:0 60px;color:#fff;font-size:15px;}
+      .header_user{font-size:12px;margin-left:20px;color:#ccc;}
+      .addinfo{width:550px;height:250px;padding-top:100px;margin-left:auto;margin-right:auto;font-size:13px;}
+      .addinfo input{width:450px;height:28px;margin-bottom:10px;outline:none;padding-left:5px;}
+      .addinfo span{display:inline-block;width: 50px;}
+      .addinfo_btn{width:450px;height:35px;text-align:center;line-height:35px;border:1px solid #ccc;margin-left:50px;margin-top:20px;border-radius:5px;}
+      .addinfo_btn:hover{background-color:#36A0FB;color:#fff;border:1px solid #36A0FB;}
+      table{width:1000px;margin-left:auto;margin-right:auto;margin-top:0px;font-size:13px;border-collapse:collapse;border-spacing:0;margin-bottom:50px;table-layout:fixed;}
+      table td{border:1px solid #ddd;padding:0;width:20%;white-space:nowrap;overflow:hidden;word-break:break-all;font-size:12px;font-weight:300;text-overflow: ellipsis;}
+      table tr:hover{background-color:#36A0FB;color:#fff !important;}
+      a{color:#fff;text-decoration:none;}
+      .bs-docs-header{z-index: -999}
+      .container{margin-top: 40px}
+  </style>
 </head>
 
 <body>
-  
+    <div class="header">
+        <div class="header_title">
+            <a href="/">后台管理系统</a>
+            <span class="header_user">欢迎你,<%-user%></span>
+            <span style="float:right" class="LogOut">
+                <a href="javascript:;">登出</a>
+            </span>
+            <span style="float:right;margin-right:20px;" class="fanhui">
+                <a href="javascript:;">返回</a>
+            </span>
+        </div>
+    </div>
+    <div style="height:40px;width:100%;"></div>
+    
     <div class="container">
         <div class="row">
             <form method="post" class="form-horizontal" role="form">
@@ -29,9 +59,7 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-1 control-label">content：</label>
                     <div class="col-sm-5">
-                        <textarea name="content" class="form-control" rows="5">
-                            <%= demo.content %>
-                        </textarea>
+                        <textarea name="content" class="form-control" rows="5"><%= demo.content %></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -44,5 +72,12 @@
             </form>
         </div>
     </div>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>        
+    <script>
+    
+      $('.fanhui').on('click',function(){
+          window.history.go(-1)
+      })
+    </script>
 </body>
 </html>

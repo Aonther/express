@@ -31,7 +31,10 @@
             <a href="/">后台管理系统</a>
             <span class="header_user">欢迎你,<%-user%></span>
             <span style="float:right" class="LogOut">
-            <a href="javascript:;">登出</a>
+                <a href="javascript:;">登出</a>
+            </span>
+            <span style="float:right;margin-right:20px;" class="fanhui">
+                <a href="javascript:;">返回</a>
             </span>
         </div>
     </div>
@@ -73,7 +76,9 @@
     </div>
     <script type="text/javascript" src="/js/jquery.min.js"></script>    
     <script>
-        
+        $('.fanhui').on('click',function(){
+            window.history.go(-1)
+        })
         function add()
         {
             var uid = $('input[name=uid]').val()

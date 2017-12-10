@@ -13,11 +13,13 @@
     input{width:500px;height:28px;border:1px solid #ccc;outline: none;margin-left:5px;padding-left:5px;margin-top:5px;}
     #submit:hover{background-color:#3B73F1;color:#fff;border:1px solid #3B73F1 !important;}
     a{color:#fff;text-decoration:none;}
-    .row{padding-top: 40px;background: #F60;height: 40px;width: 150px;font-size: 16px;text-align: center;line-height: 40px;}
-    .btn{display: block;}
-    table td{width: 100px;text-align: center;}
-    table th{width: 30px;text-align: center;font-weight: normal}
-    table td a{color: #333}
+    .row{height: 40px;width: 150px;font-size: 16px;text-align: center;line-height: 40px;margin-top: 20px}
+    .btn{display: block;color: #333}
+    table{width:1000px;margin-left:auto;margin-right:auto;margin-top:0px;font-size:13px;border-collapse:collapse;border-spacing:0;margin-bottom:50px;table-layout:fixed;}
+    table td{border:1px solid #ddd;padding:0;width:20%;white-space:nowrap;overflow:hidden;word-break:break-all;font-size:12px;font-weight:300;text-overflow: ellipsis;padding: 0 20px;}
+    table tr:hover{background-color:#36A0FB;color:#fff !important;}
+    .addinfo_btn{width:450px;height:35px;text-align:center;line-height:35px;border:1px solid #ccc;margin-left:50px;margin-top:20px;border-radius:5px;}
+    .addinfo_btn:hover{background-color:#36A0FB;color:#fff;border:1px solid #36A0FB;}
   </style>
 </head>
 <body>
@@ -27,16 +29,20 @@
         <span class="header_user">欢迎你,<%-user%></span>
         <span style="float:right;" class="LogOut">
             <a href="javascript:;">登出</a>
-        </span>        
+        </span>
+        <span style="float:right;margin-right:20px;" class="fanhui">
+            <a href="javascript:;">返回</a>
+        </span>
     </div>
 </div>
+<div style="height:40px;width:100%;"></div>
 
 <div class="row">
-    <a href="add" type="button" class="btn btn-primary">添加一条数据</a>
+    <a href="add" type="button" class="btn btn-primary">添加数据</a>
 </div>
 
-<table cellspacing="0" border="1">
-    <tr>
+<table>
+    <tr style="text-align:center;font-size:15px;height:30px;color:#fff;background-color:#36A0FB;border:0;">
         <th>id</th>
         <th>uid</th>
         <th>title</th>
@@ -45,7 +51,7 @@
         <th>操作</th>
     </tr>
     <% demos.forEach(function( demo ){ %>
-        <tr>
+        <tr style="text-align:center;height:26px;color:#4C4C4C;">
             <td>
                 <%= demo.id %>
             </td>
@@ -61,7 +67,7 @@
             <td>
                 <%= demo.createTime %>
             </td>
-            <td><a href="javascript:;" data-id="<%= demo.id %>" class="del">删除</a> | <a href="update?id=<%= demo.id %>">修改</a></td>
+            <td><a href="javascript:;" style="color:#242424;" data-id="<%= demo.id %>" class="del">删除</a> | <a href="update?id=<%= demo.id %>" style="color:#242424;">修改</a></td>
         </tr>
     <% }); %>
 </table>
@@ -69,7 +75,9 @@
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/edit.js"></script>
 <script>
-
+    $('.fanhui').on('click',function(){
+        window.history.go(-1)
+    })
     $('.del').on('click', function(){
         var id = $(this).data('id');
         var obj = {id:id}
