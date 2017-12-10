@@ -28,18 +28,20 @@ router.get('/', function(req, res, next) {
     user: user
   });
 });
-// 根据id删除对应的数据
-router.get('/del', function(req, res, next) {
-  
-  var id = req.query.id;
 
-  if (id && id != '') {
-      Demo.findByIdAndRemove(id, function(err, docs) {
-          res.redirect('xlsx');
-      });
-  }
-  
+
+// 跳转到添加数据页面
+router.get('/add', function(req, res, next) {
+  var user = req.cookies.user;
+  Demo.find(function(err, docs) {
+      res.render('add', {
+          title: 'Express+MongoDb示例',
+          demos: docs,
+          user: user
+        });
+  });
 });
+
 
 // 查询对应修改记录，并跳转到修改页面
 router.get('/update', function(req, res, next) {
@@ -59,6 +61,7 @@ router.get('/update', function(req, res, next) {
   
 });
 
+
 // 修改数据
 router.post('/update', function(req, res, next) {
   
@@ -72,7 +75,7 @@ router.post('/update', function(req, res, next) {
 
   if (id && id != '') {
       Demo.findByIdAndUpdate(id, demo, function(err, docs) {
-          res.redirect('/');
+          res.redirect('xlsx');
       });
   }
   
@@ -103,7 +106,7 @@ router.get('/tuijian', function(req, res, next) {
 router.get('/xlsx', function(req, res, next) {
   
   if(!req.cookies.user){
-    return res.render('xlsx',{});
+    return res.render('login',{});
   }
   var user = req.cookies.user;
 

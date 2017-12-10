@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var PATH = './public/data/';
+var mongoose = require('mongoose');
+var model = require('../models/models');
+var Demo = model.Demo;
+mongoose.connect('mongodb://localhost/express_demo');
 //读取数据模块，供客户端调用
 //查询接口，token校验
 //公共接口，无需校验
@@ -278,6 +282,41 @@ router.post('/LogOUt', function(req, res, next){
     });
 })
 
+// 根据id删除对应的数据
+router.post('/del', function(req, res, next) {
+    
+    var id = req.param('id') || "";  
+    
+    if (id && id != '') {
+        Demo.findByIdAndRemove(id, function(err, docs) {
+            return res.send({
+                aaa: 1
+            });
+        });
+    }
+    
+});
+
+// 添加一条数据
+router.post('/add', function(req, res, next) {
+    
+    var uid = req.param('uid');
+    var title = req.param('title');
+    var content = req.param('content');
+
+    var demo = new Demo({
+        uid: uid,
+        title: title,
+        content: content
+    });
+
+
+    demo.save(function(err, doc) {
+        return res.send({
+            aaa: 1
+        });
+    });
+});
 //guid
 function guidGenerate() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -286,5 +325,6 @@ function guidGenerate() {
         return v.toString(16);
     }).toUpperCase();
 }
+
 
 module.exports = router;
