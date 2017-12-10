@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>后台管理</title>
+  <style type="text/css" rel="stylesheet">
+    html,body{font-size:13px;width:100%;height:100%;margin:0;padding:0;font-family:"lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;}
+    .header{height:40px;width:100%;background-color:#242424;position:fixed;}
+    .header_title{line-height:40px;margin: 0 60px;color:#fff;font-size:15px;line-height: 40px;margin: 0 60px;color: #fff;font-size: 15px;}
+    .header_user{font-size:12px;margin-left:20px;color:#ccc;}
+    .panel{width:606px;margin-left:auto;margin-right:auto;padding-top:60px;}
+    .big_title{font-size:18px;width:600px;border-bottom:1px solid #ddd;color:#D33934;margin-bottom:10px;margin-top:30px;}
+    .small_title{font-size:14px;color:#40ADF9;margin-bottom:5px;margin-top:5px;}
+    input{width:500px;height:28px;border:1px solid #ccc;outline: none;margin-left:5px;padding-left:5px;margin-top:5px;}
+    #submit:hover{background-color:#3B73F1;color:#fff;border:1px solid #3B73F1 !important;}
+    a{color:#fff;text-decoration:none;}
+    table{padding-top: 40px;}
+    table td{width: 100px;text-align: center;}
+    table th{width: 30px;text-align: center;font-weight: normal}
+    table td a{color: #333}
+  </style>
+</head>
+<body>
+<div class="header">
+    <div class="header_title">
+        <a href="/">后台管理系统</a>
+        <span class="header_user">欢迎你,<%-user%></span>
+        <span style="float:right;" class="LogOut">
+            <a href="javascript:;">登出</a>
+        </span>
+    </div>
+</div>
+
+<table cellspacing="0" border="1">
+    <tr>
+        <th>id</th>
+        <th>uid</th>
+        <th>title</th>
+        <th>content</th>
+        <th>createTime</th>
+        <th>操作</th>
+    </tr>
+    <% demos.forEach(function( demo ){ %>
+        <tr>
+            <td>
+                <%= demo._id %>
+            </td>
+            <td>
+                <%= demo.uid %>
+            </td>
+            <td>
+                <%= demo.title %>
+            </td>
+            <td>
+                <%= demo.content %>
+            </td>
+            <td>
+                <%= demo.createTime %>
+            </td>
+            <td><a href="del?id=<%= demo.id %>">删除</a> | <a href="update?id=<%= demo.id %>">修改</a></td>
+        </tr>
+    <% }); %>
+</table>
+
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/edit.js"></script>
+</div>
+
+</body>
+</html>

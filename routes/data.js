@@ -63,12 +63,14 @@ router.post('/write',function(req, res, next){
         }
         var arr = JSON.parse(data.toString());
         //代表每一条记录
+        var tim = new Date();
+        var Yhm = tim.getFullYear() + '-' + (tim.getMonth() + 1) + '-' + tim.getDate()
         var obj = {
             img: img,
             url: url,
             title: title,
             id: guidGenerate(),
-            time: new Date()
+            time: Yhm
         };
         arr.splice(0, 0, obj);
         //2)写入文件
@@ -229,6 +231,7 @@ router.post('/register', function(req, res, next){
         });
     })
 });
+
 
 //登录接口
 router.post('/login', function(req, res, next){
